@@ -1,14 +1,9 @@
 <template>
-  <h1>Sudoku</h1>
-  <div style="display: flex;">
-    <SudokuBoard></SudokuBoard>
-    <NumberPad></NumberPad>
-  </div>
+  <HomeView />
 </template>
 
 <script setup lang="ts">
-import NumberPad from './components/NumberPad.vue';
-import SudokuBoard from './components/SudokuBoard.vue'
+import HomeView from './views/homeView.vue';
 </script>
 
 <style scoped>

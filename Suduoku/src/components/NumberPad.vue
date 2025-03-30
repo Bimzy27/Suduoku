@@ -3,13 +3,19 @@
     <button class="btnNumber" v-for="number in [1, 2, 3, 4, 5, 6, 7, 8, 9]" :key="number" @click="selectNumber(number)">
       {{ number }}
     </button>
-    <button class="btnNewGame">New Game</button>
+    <button class="btnNewGame" @click="newGame()">New Game</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useSudokuStore } from '@/stores/sudokuStore';
+const sudokuStore = useSudokuStore();
 function selectNumber(number: number) {
-  console.log(`Selected number: ${number}`);
+  sudokuStore.updateCell(number);
+}
+
+function newGame() {
+  sudokuStore.resetBoard();
 }
 </script>
 
