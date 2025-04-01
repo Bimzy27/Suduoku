@@ -1,13 +1,22 @@
 <template>
     <div class="nonet">
-        <Cell v-for="(cell, index) in 9" :key="index" :c-index="nIndex * 9 + index"/>
+        <Cell v-for="(index) in 9" :key="index" :c-index="cellIndex(index - 1)"/>
     </div>
 </template>
 
 <script setup lang="ts">
 import Cell from './Cell.vue'
 
-defineProps(['nIndex'])
+const props = defineProps(['nIndex'])
+
+function cellIndex(cIndex: number) {
+    const nDiv = Math.floor(props.nIndex / 3);
+    const nMod = Math.floor(props.nIndex % 3);
+    const cDiv = Math.floor(cIndex / 3);
+    const cMod = Math.floor(cIndex % 3);
+    return (nDiv * 27) + (nMod * 3) + (9 * cDiv) + cMod;
+}
+
 </script>
 
 <style scoped>

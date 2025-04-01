@@ -1,5 +1,5 @@
 <template>
-    <div class="cell" @click="selectCell" :class="{ selected: isSelected }">
+    <div class="cell" @click="selectCell" :class="{ selected: isSelected, highlighted: isHighlighted }">
         <label>{{ cellValue }}</label>
     </div>
 </template>
@@ -8,10 +8,11 @@
 import { useSudokuStore } from '@/stores/sudokuStore';
 import { computed } from 'vue';
 
-const props = defineProps(['cIndex'])
+const props = defineProps(['cIndex']);
 const sudokuStore = useSudokuStore();
 
 const isSelected = computed(() => sudokuStore.selectedIndex === props.cIndex);
+const isHighlighted = computed(() => sudokuStore.getCellValue(sudokuStore.selectedIndex) === sudokuStore.getCellValue(props.cIndex) && sudokuStore.selectedIndex !== props.cIndex && sudokuStore.getCellValue(props.cIndex) > 0);
 const cellValue = computed(() => {
     const val = sudokuStore.getCellValue(props.cIndex);
     return val > 0 ? val : '';
@@ -36,5 +37,9 @@ function selectCell() {
 
 .cell.selected {
     background-color: lightblue;
+}
+
+.cell.highlighted {
+    background-color: lightyellow;
 }
 </style>
